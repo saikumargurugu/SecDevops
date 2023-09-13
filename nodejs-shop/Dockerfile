@@ -17,14 +17,14 @@ COPY . /usr/src/app
 
 #ENV Variables
 ENV NODE_ENV=development
-ENV PORT=3001
-ENV MONGODB_URL=mongodb://mongo:27017/mydatabase
+ENV PORT=3000
+ENV MONGO_DEFAULT_DATABASE=shoping_database
 ENV AWS_ACCESS_KEY_ID= 
 ENV AWS_SECRET_ACCESS_KEY= 
 
 
 # Container exposed network port number
-EXPOSE 3001
+EXPOSE 3000
 
 # Command to run within the container
 CMD ["npm", "start"]

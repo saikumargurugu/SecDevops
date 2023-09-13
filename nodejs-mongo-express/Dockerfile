@@ -1,28 +1,13 @@
-# do this to install before to install mongo
-# docker pull mongo-express
+# Use an official MongoDB Express image as the base image
+FROM mongo-express
 
-# Use the official Node.js image as the base image
-FROM mongo-express:latest
+# Set environment variables for MongoDB Express
+ENV ME_CONFIG_MONGODB_URL 'mongodb://mongo:27017/shoping_database'
+ENV ME_CONFIG_BASICAUTH_USERNAME 'admin'
+ENV ME_CONFIG_BASICAUTH_PASSWORD 'pass'
+ENV ME_CONFIG_SITE_ENABLE_ADMIN true
+ENV ME_CONFIG_SITE_ENABLE_DEBUGGER true
+ENV ME_CONFIG_SITE_ENABLE_TRIGGERS true
 
-
-RUN mkdir -p /usr/src/app
-
-# Setting working directory in the container
-
-RUN mkdir -p /usr/src/app
-# Set the working directory
-
-COPY . /usr/src/app
-
-ENV CONFIG_MONGODB_URL='mongodb://mongo:27017/'
-ENV CONFIG_BASICAUTH_USERNAME='admin'
-ENV CONFIG_BASICAUTH_PASSWORD='pass'
-ENV CONFIG_SITE_ENABLE_ADMIN=true
-
-# Expose the port Mongo Express will run on
-EXPOSE 8081
-
-
-
-
-
+# Expose port 8081
+EXPOSE 27017

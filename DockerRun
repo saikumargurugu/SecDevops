@@ -1,0 +1,4 @@
+docker build -t frontend .
+docker build -t nodejsshop .
+docker build -t mongo .
+docker build -t nginx-proxy .
