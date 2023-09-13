@@ -1,6 +1,6 @@
 #We don't want to start from scratch.
 # That is why we tell node here to use the current node image as base.
-FROM node:alpine3.11
+FROM node:latest
 
 # Create an application directory
 RUN mkdir -p /usr/src/app
