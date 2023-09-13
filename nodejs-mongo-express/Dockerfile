@@ -1,23 +1,28 @@
-FROM node:latest
+# do this to install before to install mongo
+# docker pull mongo-express
 
-# Creating a new directory for app files and setting path in the container
+# Use the official Node.js image as the base image
+FROM mongo-express:latest
+
+
 RUN mkdir -p /usr/src/app
 
 # Setting working directory in the container
-WORKDIR /usr/src/app
 
-# Copying the package.json file (contains dependencies) from the project source dir to the container dir
+RUN mkdir -p /usr/src/app
+# Set the working directory
+
 COPY . /usr/src/app
 
-# Install Mongo Express globally (you can specify the version you need)
-# 2>&1  is to redirect errors to specific dirrectory.
+ENV CONFIG_MONGODB_URL='mongodb://mongo:27017/'
+ENV CONFIG_BASICAUTH_USERNAME='admin'
+ENV CONFIG_BASICAUTH_PASSWORD='pass'
+ENV CONFIG_SITE_ENABLE_ADMIN=true
 
-RUN npm install -g mongo-express 2>&1 | tee npm-install.log
-# Copy the Mongo Express configuration file into the container
-COPY mongo-express-config.js /usr/src/app/config
- 
-# Expose the port on which Mongo Express will run
+# Expose the port Mongo Express will run on
 EXPOSE 8081
 
-# Start Mongo Express when the container is launched
-CMD ["mongo-express"]
+
+
+
+

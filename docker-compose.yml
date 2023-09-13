@@ -1,0 +1,49 @@
+version: '3'
+services:
+  backend:
+    image: nodejsshop 
+    ports:
+      - "3001:3001"  
+    networks:
+      - app-net
+    environment:
+      - DATABASE_URL=mongodb://mongo:27017/mydatabase 
+      - MONGODB_URL=mongodb://mongo:27017/mydatabase
+      - MONGO_DEFAULT_DATABASE = 
+
+  frontend:
+    image: node-js-frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - app-net
+    environment:
+      - API_URL=http://localhost:3000  
+
+  mongo-express:
+    image: mongo-express-image
+    ports:
+      - "8081:8081"  
+    networks:
+      - app-net
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+
+  nginx:
+    image: nodejs-shop-nginx-proxy 
+    ports:
+      - "8080:80"    
+      - "8443:443" 
+    networks:
+      - app-net
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d  
+    depends_on:
+      - backend
+      - frontend
+      - mongo-express
+    environment:
+      - NGINX_PROXY_BACKEND=frontend:3001
+
+networks:
+  app-net:
