@@ -1,0 +1,19 @@
+
+docker pull mongo
+docker pull mongo-express
+docker pull nginx
+docker pull nginx
+docker images
+kubectl apply -f pod.yml
+kubectl apply -f pod.yml
+kubectl logs shopping-pod
+
+kubectl apply -f mongo-deployment.yml
+kubectl get deployment
+kubectl get pods
+kubectl apply -f mongo-service.yml
+kubectl apply -f shopping-deployment.yml
+kubectl apply -f shopping-service.yml
+minikube service shopping-service --url
+
+kubectl port-forward svc/shopping-service 8081:3000 --address 0.0.0.0 &
