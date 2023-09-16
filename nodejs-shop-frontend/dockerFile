@@ -9,16 +9,25 @@ RUN mkdir -p /usr/src/app
 # The /usr/src/app directory should act as the main application directory
 WORKDIR /usr/src/app
 
-# Copy or project directory (locally) in the current directory of our docker image (/app)
 COPY . /usr/src/app
 
-# Build the app
-
-# Expose $PORT on container.
-# We use a varibale here as the port is something that can differ on the environment.
-EXPOSE 3003
 
 # Set the browser base url
 ENV NODE_ENV=development
+ENV PORT=3000
+ENV MONGO_DEFAULT_DATABASE=shoping_database
+ENV DATABASE_URL=mongodb://mongo:27017/shoppingdatabase
+ENV MONGODB_URL=mongodb://mongo:27017/shoppingdatabase
+ENV API_URL=http://localhost:3000
+ENV ME_CONFIG_BASICAUTH_USERNAME: admin
+ENV ME_CONFIG_BASICAUTH_PASSWORD: pass
+ENV ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/shoppingdatabase
+ENV ME_CONFIG_MONGODB_SERVER: mongo
+ENV ME_CONFIG_MONGODB_PORT: 27017
+ENV ME_CONFIG_MONGODB_ENABLE_ADMIN: true
+ENV ME_CONFIG_OPTIONS_EDITORTHEME: default
+ENV NGINX_PROXY_BACKEND=shopping:3000
 
-# Start the app
+EXPOSE 3000
+
+CMD ["npm", "start"]
