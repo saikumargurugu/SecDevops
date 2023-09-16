@@ -22,5 +22,5 @@ spec:
             - containerPort: 3000
           env:
             - name: MONGODB_URI
-              value: "mongodb://username:password@mongo-service:27017/shopping_database"
+              value: "mongodb://shopping:shopping@mongo-service:27017/shoppingdatabase"
 

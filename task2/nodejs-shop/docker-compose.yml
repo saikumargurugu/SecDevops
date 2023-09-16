@@ -1,0 +1,59 @@
+version: '3.9'
+services:
+  shopping:
+    image: shopping
+    ports:
+      - "3000:3000"
+    networks:
+      - app-net
+    environment:
+      - DATABASE_URL=mongodb://mongo:27017/shoppingdatabase
+      - MONGODB_URL=mongodb://mongo:27017/shoppingdatabase
+      - MONGO_DEFAULT_DATABASE=shoppingdatabase
+      - API_URL=http://localhost:3000
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - app-net
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: pass
+      ME_CONFIG_SITE_ENABLE_ADMIN: true
+      ME_CONFIG_SITE_ENABLE_DEBUGGER: true
+      ME_CONFIG_SITE_ENABLE_TRIGGERS: true
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - "8081:8081"
+    networks:
+      - app-net
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: pass
+      ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: true
+      ME_CONFIG_OPTIONS_EDITORTHEME: default
+
+  nginx:
+    image: nginx-proxy
+    ports:
+      - "8080:80"
+      - "8443:443"
+    networks:
+      - app-net
+    volumes:
+      - ./nginx.conf:/usr/src/app/nginx.conf
+    depends_on:
+      - shopping
+      - mongo
+    environment:
+      - NGINX_PROXY_BACKEND=shopping:3000
+
+networks:
+  app-net:

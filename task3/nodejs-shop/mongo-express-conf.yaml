@@ -3,9 +3,8 @@ kind: ConfigMap
 metadata:
   name: mongo-express-config
 data:
-  ME_CONFIG_MONGODB_SERVER: mongo-service # Assuming your MongoDB service name is 'mongo-service'
+  ME_CONFIG_MONGODB_SERVER: mongo-service 
   ME_CONFIG_MONGODB_PORT: "27017" # Default MongoDB port
-  ME_CONFIG_MONGODB_DATABASE: mydatabase # Replace with your database name
-  ME_CONFIG_MONGODB_USERNAME: username # Replace with your MongoDB username
-  ME_CONFIG_MONGODB_PASSWORD: password # Replace with your MongoDB password
-#kubectl apply -f mongo-express-conf.yml
+  ME_CONFIG_MONGODB_DATABASE: mydatabase
+  ME_CONFIG_MONGODB_USERNAME: username 
+  ME_CONFIG_MONGODB_PASSWORD: password
